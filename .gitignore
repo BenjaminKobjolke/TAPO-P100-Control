@@ -1,0 +1,5 @@
+/*.bat
+/__pycache__
+/build
+/dist
+/tapo.spec
