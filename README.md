@@ -1,4 +1,4 @@
-﻿#Info
+# Info
  Uses https://github.com/fishbigger/TapoP100
  
  # Use
