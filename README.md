@@ -1,4 +1,7 @@
-﻿# Use
+﻿#Info
+ Uses https://github.com/fishbigger/TapoP100
+ 
+ # Use
 
 ## Python script
 > python tapo.py TAPO_USERNAME TAPO_PASSWORD IP on|off
