@@ -1,1 +1,1 @@
-pip3 install PyP100
+call pip install git+https://github.com/almottier/TapoP100.git@main
