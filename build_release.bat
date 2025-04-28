@@ -1,0 +1,1 @@
+call pyinstaller --onefile tapo.py
