@@ -1,5 +1,5 @@
 # Info
- Uses https://github.com/fishbigger/TapoP100
+ Uses [https://github.com/fishbigger/TapoP100](https://github.com/almottier/TapoP100.git)
  
  # Use
 
