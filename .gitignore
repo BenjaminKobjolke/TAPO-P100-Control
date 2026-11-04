@@ -18,3 +18,8 @@ claude-plans
 # graphify + coding-rules local state
 graphify-out/
 coding-rules.json
+
+# release-tool local state
+tools/config.bat
+tools/previous_version.txt
+tools/CREATE_RELEASE_NOTES.md

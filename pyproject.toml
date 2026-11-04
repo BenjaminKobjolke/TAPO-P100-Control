@@ -1,6 +1,6 @@
 [project]
 name = "tapo-p100-control"
-version = "0.1.0"
+version = "0.3.1"
 description = "Switch a TP-Link Tapo P100 smart plug on or off from the command line"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"

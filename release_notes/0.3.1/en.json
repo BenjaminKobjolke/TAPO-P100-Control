@@ -1,0 +1,9 @@
+{
+  "version": "0.3.1",
+  "date": "2026-11-04",
+  "title": "Clearer command-line control",
+  "notes": [
+    "Invalid commands and IP addresses are now caught before connecting, with clearer guidance on how to use the command.",
+    "Plug connection and switching failures now produce a concise, actionable error message instead of a full technical traceback."
+  ]
+}

@@ -52,6 +52,7 @@ Runs `uv lock --upgrade`, `uv sync`, ruff, mypy and the tests. Commit `uv.lock` 
 - `uv run ruff check src tests`, `uv run ruff format src tests`, `uv run mypy src/`
 
 ## Build exe
-> build_release.bat
+> tools\build_release.bat
 
-Runs PyInstaller through `uv run --with pyinstaller`; the exe is written to `dist/tapo.exe`.
+Runs PyInstaller through `uv run --with pyinstaller`; the exe is written to `dist/tapo.exe` (with `release_notes/` bundled inside).
+Release steps (version bump, release notes): see [docs/CREATE_NEW_RELEASE.md](docs/CREATE_NEW_RELEASE.md).
