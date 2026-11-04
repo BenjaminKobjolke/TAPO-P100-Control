@@ -1,21 +1,37 @@
 #!/usr/bin/python
 
+import ipaddress
+import logging
 import sys
 from PyP100 import PyP100
 
-if len(sys.argv) < 4:
-    print('add username, password, ip and on/off as arguments')
-    sys.exit(1)
+USAGE = 'usage: tapo USERNAME PASSWORD IP on|off'
 
-p100 = PyP100.P100(sys.argv[3], sys.argv[1], sys.argv[2]) #Creating a P100 plug object
+if len(sys.argv) != 5:
+    sys.exit(USAGE)
 
-p100.handshake() #Creates the cookies required for further methods
-p100.login() #Sends credentials to the plug and creates AES Key and IV for further methods
+username, password, ip, action = sys.argv[1:]
 
-# get command line parameter on or off
+# cmd.exe passes single quotes literally; strip them so 'pw' works like "pw"
+if len(password) > 1 and password[0] == password[-1] == "'":
+    password = password[1:-1]
 
-if sys.argv[4] == "on":
-    p100.turnOn()
-elif sys.argv[4] == "off":
-    p100.turnOff()
+try:
+    ipaddress.ip_address(ip)
+except ValueError:
+    sys.exit(f'Invalid IP "{ip}". {USAGE}')
 
+if action not in ('on', 'off'):
+    sys.exit(f'Invalid action "{action}", use on or off. {USAGE}')
+
+# PyP100 logs a full traceback per failed protocol; we report one clean line instead
+logging.getLogger('PyP100').setLevel(logging.CRITICAL)
+
+try:
+    p100 = PyP100.P100(ip, username, password)
+    p100.handshake()
+    p100.login()
+    p100.turnOn() if action == 'on' else p100.turnOff()
+except Exception as e:
+    sys.exit(f'Failed to switch plug {ip} {action}: {e}\n'
+             'Check IP, username/password, and "Third-Party Compatibility" in the Tapo app.')
