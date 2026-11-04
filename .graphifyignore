@@ -1,0 +1,13 @@
+*.md
+*.json
+*.bat
+*.spec
+LICENSE
+tools/
+.claude/
+claude-plans/
+graphify-out/
+build/
+dist/
+venv/
+__pycache__/
