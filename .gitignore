@@ -4,3 +4,11 @@
 /dist
 /tapo.spec
 /venv
+claude-plans
+
+# Claude working files
+/PLAN.md
+/HANDOFF.md
+/PLAN_*.md
+.claude/
+/tickets/
