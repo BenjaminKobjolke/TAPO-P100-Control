@@ -12,3 +12,7 @@ claude-plans
 /PLAN_*.md
 .claude/
 /tickets/
+
+# graphify + coding-rules local state
+graphify-out/
+coding-rules.json
