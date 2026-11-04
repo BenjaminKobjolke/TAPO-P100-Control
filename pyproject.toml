@@ -1,0 +1,41 @@
+[project]
+name = "tapo-p100-control"
+version = "0.1.0"
+description = "Switch a TP-Link Tapo P100 smart plug on or off from the command line"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "pyp100",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+pyp100 = { git = "https://github.com/almottier/TapoP100.git", rev = "main" }
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+strict = true
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["PyP100", "PyP100.*"]
+ignore_missing_imports = true
