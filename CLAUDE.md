@@ -33,3 +33,13 @@ they are intentionally referenced, not imported.
 ## graphify
 
 This project's code directory is `.` (repo root; `tapo.py`). Non-code files are excluded via `.graphifyignore`.
+
+## Code Analysis
+
+Run the changed-files analyzer after implementing a feature or fixing a bug:
+
+```bash
+powershell -Command "cd 'D:\GIT\BenjaminKobjolke\TAPO-P100-Control'; cmd /c '.\tools\analyze_changed_and_new_files.bat'"
+```
+
+It reports only new or modified files relative to Git `HEAD` and exits non-zero when it finds a warning or error. The full-project analyzer is available through `tools/analyze_code.bat` for whole-project audits.
