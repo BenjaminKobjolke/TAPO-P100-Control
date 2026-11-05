@@ -1,0 +1,17 @@
+{
+  "files": {
+    "TICKETS_WATCHER_COMMANDS.md": 3
+  },
+  "command_check_scripts": [
+    "build_release.bat",
+    "config.bat",
+    "config_example.bat",
+    "graphify_update.bat",
+    "release_create.bat",
+    "run_integration_tests.bat",
+    "run_tests.bat",
+    "version_decrement.bat",
+    "version_get.bat",
+    "version_increment.bat"
+  ]
+}

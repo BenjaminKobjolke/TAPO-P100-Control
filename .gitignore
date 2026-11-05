@@ -23,3 +23,6 @@ coding-rules.json
 tools/config.bat
 tools/previous_version.txt
 tools/CREATE_RELEASE_NOTES.md
+tmp/commit_msg.tmp
+code_analysis_results/
+.reasonix/
