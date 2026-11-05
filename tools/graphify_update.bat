@@ -35,37 +35,53 @@ set "GRAPHIFY=graphify"
 where graphify >nul 2>nul
 if errorlevel 1 (
   if exist "graphify-out\.graphify_python" (
-    set /p GPY=<graphify-out\.graphify_python
+    for /f "usebackq delims=" %%G in ("graphify-out\.graphify_python") do set "GPY=%%G"
     set "GRAPHIFY=!GPY:python.exe=graphify.exe!"
   ) else (
     echo ERROR: graphify not on PATH and no graphify-out\.graphify_python found.
     echo Build the graph once in Claude:  /graphify %CODE_DIR% --directed
-    popd & endlocal & exit /b 1
+    set "COMMAND_RESULT=1"
+    goto :command_failed
   )
 )
 
 echo === [1/2] live-graph AST refresh (no LLM) : %CODE_DIR% ===
 set "GRAPHIFY_OUT=%CD%\graphify-out"
 "%GRAPHIFY%" update "%CD%\%CODE_DIR%"
+set "COMMAND_RESULT=%ERRORLEVEL%"
+if not "%COMMAND_RESULT%"=="0" goto :command_failed
 echo.
 
 echo === [2/2] smoke test: live root graph ===
 if not exist "graphify-out\graph.json" (
   echo ERROR: graphify-out\graph.json not found.
   echo Build it in Claude:  /graphify %CODE_DIR% --directed
-  popd & endlocal & exit /b 1
+  set "COMMAND_RESULT=1"
+  goto :command_failed
 )
 REM Report directed flag + node count of the LIVE root graph (should be directed:True).
 if exist "graphify-out\.graphify_python" (
-  set /p GPY2=<graphify-out\.graphify_python
+  for /f "usebackq delims=" %%G in ("graphify-out\.graphify_python") do set "GPY2=%%G"
   "!GPY2!" -c "import json;d=json.load(open('graphify-out/graph.json',encoding='utf-8'));print('directed:',d.get('directed'),'  nodes:',len(d.get('nodes',[])))"
+  set "COMMAND_RESULT=!ERRORLEVEL!"
+  if not "!COMMAND_RESULT!"=="0" goto :command_failed
 )
 echo.
 echo --- god nodes (top 5) ---
 "%GRAPHIFY%" god-nodes --top 5
+set "COMMAND_RESULT=%ERRORLEVEL%"
+if not "%COMMAND_RESULT%"=="0" goto :command_failed
 echo.
 echo --- sample query ---
 "%GRAPHIFY%" query "What are the main modules and how do they connect?"
+set "COMMAND_RESULT=%ERRORLEVEL%"
+if not "%COMMAND_RESULT%"=="0" goto :command_failed
 
 popd
 endlocal
+exit /b 0
+
+:command_failed
+echo ERROR: graphify command failed with exit code %COMMAND_RESULT%.
+popd
+endlocal & exit /b %COMMAND_RESULT%
